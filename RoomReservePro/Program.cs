@@ -10,6 +10,9 @@ namespace RoomReservePro
     {
         static void Main(string[] args)
         {
+            RoomModel roomModel = new RoomModel();
+            Room room = new Room("Gran Suite", 500, 7);
+            roomModel.getAll();
         }
     }
 }
