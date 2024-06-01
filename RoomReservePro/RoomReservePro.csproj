@@ -96,10 +96,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BDConfig.cs" />
+    <Compile Include="IControlUI.cs" />
+    <Compile Include="MainMenuUI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisteredReservation.cs" />
+    <Compile Include="RegisteredRoom.cs" />
+    <Compile Include="Reservation.cs" />
+    <Compile Include="ReservationModel.cs" />
+    <Compile Include="ReservationsUI.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomModel.cs" />
+    <Compile Include="RoomsUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
