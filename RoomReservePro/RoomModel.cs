@@ -24,8 +24,6 @@ namespace RoomReservePro
                     MySqlDataReader reader = command.ExecuteReader();
                     connection.Close();
                     reader.Close();
-                    Console.WriteLine("Proyecto agregado con éxito");
-                    Console.WriteLine("\n");
                 }
             }
             catch (Exception ex)
@@ -67,7 +65,7 @@ namespace RoomReservePro
             return list;
         }
 
-        public RegisteredRoom getById(int id)
+        public RegisteredRoom getByCode(string code)
         {
             RegisteredRoom room = null;
             try
@@ -75,17 +73,17 @@ namespace RoomReservePro
                 using (MySqlConnection connection = new MySqlConnection(BDConfig.ConnectionString))
                 {
                     connection.Open();
-                    string query = $"SELECT * FROM room where id = {id};";
+                    string query = $"SELECT * FROM room where code = {code};";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         int roomId = Int32.Parse(reader["id"].ToString());
                         string name = reader["name"].ToString();
-                        string code = reader["code"].ToString();
+                        string currentCode = reader["code"].ToString();
                         float price = float.Parse(reader["price"].ToString(), CultureInfo.InvariantCulture);
                         int quantity = Int32.Parse(reader["quantity"].ToString());
-                        room = new RegisteredRoom(roomId, name, code, price, quantity);
+                        room = new RegisteredRoom(roomId, name, currentCode, price, quantity);
                     }
                     connection.Close();
                     Console.WriteLine("\n");
@@ -99,7 +97,27 @@ namespace RoomReservePro
             return room;
         }
 
-        public bool update(int id, string property, string value)
+        public void update(string code, int price, int quantity)
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(BDConfig.ConnectionString))
+                {
+                    conn.Open();
+                    string query = $"UPDATE room SET price = '{price}', quantity = '{quantity}' WHERE code = {code};";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error", ex.ToString());
+            }
+        }
+
+        public bool updateQuantity(int id, int value)
         {
             bool success;
             try
@@ -107,7 +125,7 @@ namespace RoomReservePro
                 using (MySqlConnection conn = new MySqlConnection(BDConfig.ConnectionString))
                 {
                     conn.Open();
-                    string query = $"UPDATE user SET {property} = '{value}' WHERE id = {id};";
+                    string query = $"UPDATE room SET quatity = '{value}' WHERE id = {id};";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     conn.Close();
@@ -115,9 +133,9 @@ namespace RoomReservePro
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("Error");
+                Console.WriteLine("Error", ex.ToString());
                 success = false;
             }
             return success;

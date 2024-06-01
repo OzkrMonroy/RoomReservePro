@@ -32,8 +32,6 @@ namespace RoomReservePro
                     }
                     connection.Close();
                     reader.Close();
-                    Console.WriteLine("Reservacion agregada con éxito");
-                    Console.WriteLine("\n");
                 }
             }
             catch (Exception ex)
