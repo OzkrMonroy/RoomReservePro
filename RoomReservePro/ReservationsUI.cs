@@ -97,8 +97,8 @@ namespace RoomReservePro
                 });
                 Console.WriteLine("\n");
                 Console.WriteLine("Ingrese el Id de la habitación que deseas:");
-                int selectedId = Convert.ToInt32(Console.ReadLine());
-                RegisteredRoom selectedRoom = roomModel.getById(selectedId);
+                string selectedCode = Console.ReadLine();
+                RegisteredRoom selectedRoom = roomModel.getByCode(selectedCode);
                 Console.WriteLine($"Seleccinaste la habitación: {selectedRoom.name}, disponibles: {selectedRoom.quantity}");
                 Console.WriteLine("Ingresa la cantidad de habitaciones que deseas");
                 int quantityToReserve = Convert.ToInt32(Console.ReadLine());
